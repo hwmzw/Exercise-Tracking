@@ -1,12 +1,12 @@
 const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 
 const app = express();
 const port = 8081;
-
-mongoose.connect("mongodb://localhost:27017/Tasks");
+const connection= "mongodb://localhost:27017/Tasks";
+mongoose.connect(connection);
 
 app.use(bodyParser.json());
 app.use(express.static("public"));
@@ -18,7 +18,7 @@ const userSchemas = mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true,
-            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
+  match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
 },
   password: { type: String, required: true },
 });
@@ -32,6 +32,7 @@ app.post("/register", (req, res) => {
     email: req.body.email,
     password: req.body.password,
   });
+  
   newUser.save((err) => {
     if (!err) {
       res.send("Registered Successfully");
