@@ -12,30 +12,36 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//creating schemas
+
 const userSchemas = mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  email: String,
-  password: String,
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true, unique: true,
+            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
+},
+  password: { type: String, required: true },
 });
 const User = mongoose.model("User", userSchemas);
 
+//saving to database
 app.post("/register", (req, res) => {
   const newUser = new User({
-    firstName: req.body.fname,
-    lastName: req.body.lname,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
-    password: req.body.pwd,
+    password: req.body.password,
   });
-  newUser.save((err)=>{
-    if(!err){
-        res.send("Registered Successfully")
+  newUser.save((err) => {
+    if (!err) {
+      res.send("Registered Successfully");
+    } else {
+      res.send(err);
     }
-    else{
-        res.send(err)
-    }
-  })
+  });
 });
+
+//hashing password
 
 app.listen(port, () => {
   console.log(`Server is listening on port: ${port}`);
