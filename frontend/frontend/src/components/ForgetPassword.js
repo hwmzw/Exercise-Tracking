@@ -5,9 +5,9 @@ function ForgetPassword() {
 // const [password, setPassword] = useState('')
 const [email,setEmail] = useState('')
 
-const reset = () => {
-
+const Forget = () => {
 //axios here
+ console.log("Send Reset Email")
 
 };
   return (
@@ -18,7 +18,7 @@ const reset = () => {
     <input type="email" className="mx-3" value={email} onChange={e=>setEmail(e.target.value)}/>
     <br/>
 
-    <button className="my-3" onClick={reset}>Send Reset Email</button>
+    <button className="my-3" onClick={Forget}>Send Reset Email</button>
     </div>
   );
 }

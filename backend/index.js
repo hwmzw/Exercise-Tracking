@@ -41,6 +41,7 @@ server.post("/register", async (req, res) => {
 //login api
 
 server.post("/login", async (req, res) => {
+    const {email, password } = req.body;
   const token = req.headers["x-access-token"];
   if (!token) {
     return res.status(401).json({ auth: false, message: "No token provided." });
