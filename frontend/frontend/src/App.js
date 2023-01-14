@@ -1,8 +1,18 @@
-import SignUp from './components/SignUp';
 import './App.css';
+import ForgetPassword from './components/ForgetPassword';
+import Login from './components/Login';
+import Register from './components/Register';
+import ResetPassword from './components/ResetPassword';
 function App() {
   return (
-   <SignUp/>
+   <>
+    <Register/>
+    <Login/>
+    <ForgetPassword/>
+    <ResetPassword/>
+  
+
+   </>
   );
 }
 

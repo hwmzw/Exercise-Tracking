@@ -1,19 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState} from "react";
+import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
-import toast from 'react-hot-toast';
 
 
-function SignUp() {
+function Register() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     
-    const register = ()=>{
+    const registers = ()=>{
         if(!firstName || !email || !password || !confirmPassword) {
-            return toast.error("Please fill all fields");
-            
+            return toast.error("Please fill all fields");  
         }
         if(password.length < 8) {
             return toast.error("Password should be at least 8 characters!")
@@ -26,7 +25,7 @@ function SignUp() {
             return toast.error("Password should be same as confirm password")
         }
 
-        axios.post('http://localhost:8081/User', {
+        axios.post('http://localhost:8081/register', {
             firstName, lastName, email, password
           })
           .then(function (response) {
@@ -45,7 +44,6 @@ function SignUp() {
 
     }
 
-
     const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -56,27 +54,28 @@ function SignUp() {
 
     return(
         <>
+        <div className="container my-3">
+        <h1>Create Your account here</h1>
         <label>First Name</label>
-        <input type="text" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
-        <br/>
+        <input className="mx-3 my-2" type="text" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
         <br/>
         <label>Last Name</label>
-        <input type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+        <input className="mx-3 " type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
         <br/>
         <label>Email</label>
-        <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+        <input className="mx-5 my-3" type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
         <br/>
         <label>Password</label>
-        <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+        <input className="mx-3 " type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
         <br/>
         <label>Confirm Password</label>
-        <input type="password" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)}/>
-        <button type="button" onClick={register}>Submit</button>
+        <input className="mx-3" type="password" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)}/>
+        <br/>
+        <button type="button" className="mx-3" onClick={registers}>Signup</button>
+        <Toaster/>
+        </div>
         </>
-        
-    )
+    )   
 }
 
-export default SignUp
-
-
+export default Register
