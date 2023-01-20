@@ -18,6 +18,7 @@ server.post('/login', (req, res) => {
         name: user.name,
         email: user.email
       }
+      
 
       jwt.sign(payload, process.env.SECRET_OR_KEY, { expiresIn: 3600 }, (err, token) => {
         if (err) throw err
